@@ -294,6 +294,46 @@
         left: 0;
     }
 
+    .vaga-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.15rem;
+        color: var(--primary);
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .requirements-list, .differentials-list {
+        list-style: none;
+        margin: 0 0 20px 0;
+        padding: 0;
+    }
+    
+    .requirements-list li::before,
+    .differentials-list li::before {
+        content: none !important;
+    }
+    
+    .requirements-list li, .differentials-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: #333;
+        padding-left: 0;
+        position: static;
+    }
+    
+    .requirements-list li svg, .differentials-list li svg {
+        flex-shrink: 0;
+    }
+    
+    .differentials-list {
+        margin-bottom: 30px;
+    }
+            
     .btn-apply {
         display: inline-block;
         background-color: var(--primary);
