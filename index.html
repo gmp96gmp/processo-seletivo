@@ -48,8 +48,8 @@
         margin: 0 auto;
         padding: 0 20px;
     }
-
-    /* NAVBAR */
+        
+/* NAVBAR */
     nav {
         position: fixed;
         top: 0;
@@ -119,7 +119,7 @@
         cursor: pointer;
     }
 
-    /* HERO SECTION */
+/* HERO SECTION */
     .hero {
         height: 100vh;
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -182,7 +182,7 @@
         60% {transform: translateY(-5px) translateX(-50%);}
     }
 
-    /* SECTIONS GENERAL */
+/* SECTIONS GENERAL */
     section {
         padding: 80px 0;
     }
@@ -238,118 +238,353 @@
         font-size: 1.5rem;
     }
 
-    /* VAGAS SECTION */
+/* VAGAS SECTION */
+
     .vagas {
         background-color: var(--bg-light);
     }
 
-    .vaga-featured {
-        background: var(--secondary);
-        border-radius: var(--radius);
-        padding: 50px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border-left: 5px solid var(--primary);
-        max-width: 900px;
-        margin: 0 auto;
-    }
+    /* Filtros (só aparece com 4+ vagas) */
+        .vaga-filtros {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
 
-    .vaga-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 25px;
-    }
+        .filtro-btn {
+            padding: 8px 18px;
+            border: 1.5px solid rgba(114, 7, 9, 0.2);
+            background: transparent;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
 
-    .badge {
-        background: #e6f4ea;
-        color: #1e7e34;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
+        .filtro-btn:hover,
+        .filtro-btn.active {
+            background: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
 
-    .vaga-featured h3 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-    }
-
-    .vaga-featured ul {
-        list-style: none;
-        margin: 25px 0;
-    }
-
-    .vaga-featured ul li {
-        margin-bottom: 10px;
-        padding-left: 25px;
-        position: relative;
-    }
-
-    .vaga-featured ul li::before {
-        content: "•";
-        color: var(--primary);
-        font-weight: bold;
-        position: absolute;
-        left: 0;
-    }
-
-    .vaga-subtitle {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.15rem;
-        color: var(--primary);
-        margin-top: 30px;
-        margin-bottom: 15px;
-        font-weight: 700;
-    }
-
-    .requirements-list, .differentials-list {
-        list-style: none;
-        margin: 0 0 20px 0;
-        padding: 0;
-    }
-    
-    .requirements-list li::before,
-    .differentials-list li::before {
-        content: none !important;
-    }
-    
-    .requirements-list li, .differentials-list li {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 12px;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        color: #333;
-        padding-left: 0;
-        position: static;
-    }
-    
-    .requirements-list li svg, .differentials-list li svg {
-        flex-shrink: 0;
-    }
-    
-    .differentials-list {
-        margin-bottom: 30px;
-    }
-            
-    .btn-apply {
-        display: inline-block;
-        background-color: var(--primary);
-        color: var(--secondary);
-        text-decoration: none;
-        padding: 15px 35px;
-        border-radius: var(--radius);
-        font-weight: 600;
-        transition: var(--transition);
-    }
-
-    .btn-apply:hover {
-        background-color: var(--primary-dark);
-    }
-
-    /* FORMULÁRIO SECTION */
+     /* Carrossel */
+        .vaga-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 20px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(114,7,9,0.2) transparent;
+        }
+        
+        .vaga-carousel::-webkit-scrollbar { height: 6px; }
+        .vaga-carousel::-webkit-scrollbar-track { background: transparent; }
+        .vaga-carousel::-webkit-scrollbar-thumb { background: rgba(114,7,9,0.2); border-radius: 3px; }
+        
+     /* Card Nível 1 */
+        .vaga-card {
+            flex: 0 0 380px;
+            scroll-snap-align: center;
+            background: var(--secondary);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+        
+        .vaga-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+        
+        .vaga-card.fechada {
+            opacity: 0.65;
+            border-left-color: #999;
+        }
+        
+        .vaga-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .badge-regime {
+            background: #e6f4ea;
+            color: #1e7e34;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-fechada {
+            background: #f5f5f5;
+            color: #999;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .area-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .vaga-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        
+        .vaga-desc-curta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+     /* Info bar (ícones) */
+        .vaga-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.78rem;
+            color: #555;
+        }
+        
+        .info-item svg { color: var(--primary); }
+        
+    /* Botão Ver detalhes */
+        .btn-detalhes {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            padding: 12px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: auto;
+        }
+        
+        .btn-detalhes:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+                
+    /* Ver todas */
+        .ver-todas-wrapper {
+            text-align: center;
+            margin-top: 35px;
+        }
+        
+        .btn-ver-todas {
+            display: inline-block;
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .btn-ver-todas:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+        
+    /* MODAL (Nível 2) */
+        .vaga-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .vaga-modal-overlay.active {
+            display: flex;
+        }
+        
+        .vaga-modal {
+            background: var(--secondary);
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: var(--text-dark);
+        }
+        
+        .vaga-modal h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            padding-right: 40px;
+        }
+        
+        .modal-area-regime {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .vaga-modal .vaga-info {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            padding-bottom: 15px;
+        }
+        
+        .modal-descricao {
+            margin-bottom: 25px;
+            color: #444;
+            line-height: 1.6;
+        }
+        
+    /* Subtítulos e listas (reutilizados no modal) */
+        .vaga-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .requirements-list, .differentials-list {
+            list-style: none;
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+        
+        .requirements-list li::before,
+        .differentials-list li::before {
+            content: none !important;
+        }
+        
+        .requirements-list li, .differentials-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #333;
+            padding-left: 0;
+            position: static;
+        }
+        
+        .requirements-list li svg, .differentials-list li svg {
+            flex-shrink: 0;
+        }
+        
+        .differentials-list {
+            margin-bottom: 30px;
+        }
+        
+    /* Botões do modal */
+        .btn-apply {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+        
+        .btn-apply:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-whatsapp-fechada {
+            display: block;
+            width: 100%;
+            background-color: #25D366;
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .btn-whatsapp-fechada:hover {
+            background-color: #20bd5a;
+        }
+                
+/* FORMULÁRIO SECTION */
     .form-section {
         border-top: 4px solid var(--primary);
     }
@@ -403,16 +638,19 @@
         padding-top: 20px;
     }
 
-    /* MOBILE RESPONSIVENESS */
+/* MOBILE RESPONSIVENESS */
     @media (max-width: 768px) {
         section { padding: 40px 0; }
         .nav-links { display: none; }
         .nav-toggle { display: block; }
         .culture-grid { grid-template-columns: 1fr; }
-        .vaga-header { flex-direction: column; gap: 10px; }
-        .vaga-featured { padding: 30px; }
+        .vaga-card { flex: 0 0 85%; }
+        .vaga-modal {
+            padding: 25px 20px;
+            max-height: 80vh;
+        }          
+        .vaga-modal h3 { font-size: 1.5rem; }
         .hero h1 { font-size: 2.5rem; }
-        
         .nav-links.active {
             display: flex;
             flex-direction: column;
@@ -427,7 +665,244 @@
         }
     }
 </style>
-    </head>
+</head>
+
+<!--// ====== JAVASCRIPT ====== // -->
+
+<script>
+    // ====== DADOS DAS VAGAS ======
+    // Para adicionar uma vaga: copie um bloco, preencha os campos
+    // ordem: número (menor = aparece primeiro)
+    // ativa: true = aberta | false = fechada (cinza, botão WhatsApp)
+    const vagas = [
+        {
+            id: "estagio-marketing",
+            titulo: "Estágio em Marketing",
+            area: "Marketing",
+            regime: "ESTÁGIO",
+            cargaHoraria: "40h/semana",
+            turno: "Flexível",
+            folga: "Seg e Ter",
+            modalidade: "Presencial",
+            descricaoCurta: "Buscamos alguém criativo com vontade de aprender para impulsionar nossa presença digital.",
+            descricaoLonga: "Buscamos alguém que tenha vontade de aprender e colocar a mão na massa. Você vai auxiliar na criação de conteúdo, campanhas e muito mais.",
+            requisitos: [
+                "Cursando Marketing ou afins",
+                "Vontade de aprender e \"mão na massa\"",
+                "Boa escrita e comunicação clara",
+                "Antenado nas trends do TikTok e Instagram",
+                "Disponibilidade de horário flexível para demandas eventuais"
+            ],
+            diferenciais: [
+                "Domínio de Canva, CapCut e afins",
+                "Conhecimento no Pacote Adobe",
+                "Experiência prévia com redes sociais",
+                "Noção básica de métricas e engajamento",
+                "Paixão por gastronomia e restaurantes"
+            ],
+            ordem: 1,
+            ativa: true
+        },
+        {
+            id: "auxiliar-cozinha",
+            titulo: "Auxiliar de Cozinha",
+            area: "Cozinha/Pizza",
+            regime: "CLT",
+            cargaHoraria: "44h/semana",
+            turno: "Noite",
+            folga: "Rotativo",
+            modalidade: "Presencial",
+            descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
+            descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
+            requisitos: ["Experiência prévia em cozinha", "Disponibilidade para turno noturno"],
+            diferenciais: ["Curso de boas práticas em manipulação de alimentos"],
+            ordem: 2,
+            ativa: false
+        },
+        {
+            id: "garcom",
+            titulo: "Garçom/Garçonete",
+            area: "Atendimento",
+            regime: "CLT",
+            cargaHoraria: "44h/semana",
+            turno: "Noite",
+            folga: "Seg e Ter",
+            modalidade: "Presencial",
+            descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
+            descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
+            requisitos: ["Experiência em atendimento ao público", "Boa comunicação"],
+            diferenciais: ["Experiência com sistema de pedidos digital"],
+            ordem: 3,
+            ativa: false
+        },
+        {
+            id: "entregador",
+            titulo: "Entregador",
+            area: "Delivery",
+            regime: "TEMPORÁRIO",
+            cargaHoraria: "30h/semana",
+            turno: "Flexível",
+            folga: "Rotativo",
+            modalidade: "Presencial",
+            descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
+            descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
+            requisitos: ["Veículo próprio", "Disponibilidade de horário flexível"],
+            diferenciais: ["Experiência com delivery de alimentos"],
+            ordem: 4,
+            ativa: false
+        }
+    ];
+
+    // Cores das áreas
+    const areaCores = {
+        "Cozinha/Pizza": "#e74c3c",
+        "Atendimento": "#3498db",
+        "Administrativo": "#2ecc71",
+        "Delivery": "#9b59b6",
+        "Marketing": "#f39c12"
+    };
+
+    // WhatsApp para vagas fechadas
+    const whatsappLink = "https://wa.me/5521992887277?text=Oi%2C%20vi%20que%20a%20vaga%20de%20[VAGA]%20est%C3%A1%20fechada%20mas%20gostaria%20de%20enviar%20meu%20curr%C3%ADculo.";
+
+    // Ícones SVG
+    const icons = {
+        clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+        sun: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',
+        calendar: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+        pin: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+        check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>'
+    };
+
+    // ====== RENDERIZAÇÃO ======
+    function renderVagas() {
+        // Ordenar: ordem asc → área asc (A-Z) → título asc (A-Z)
+        vagas.sort((a, b) => {
+            if (a.ordem !== b.ordem) return a.ordem - b.ordem;
+            if (a.area !== b.area) return a.area.localeCompare(b.area);
+            return a.titulo.localeCompare(b.titulo);
+        });
+
+        // Filtros + "Ver todas" só se 4+ vagas
+        const filtrosDiv = document.getElementById('vaga-filtros');
+        const verTodasDiv = document.getElementById('ver-todas-wrapper');
+
+        if (vagas.length >= 4) {
+            const areas = [...new Set(vagas.map(v => v.area))];
+            filtrosDiv.innerHTML = '<button class="filtro-btn active" data-filtro="todas">Ver todas</button>' +
+                areas.map(a => '<button class="filtro-btn" data-filtro="' + a + '">' + a + '</button>').join('');
+            filtrosDiv.style.display = 'flex';
+            verTodasDiv.style.display = 'block';
+
+            filtrosDiv.querySelectorAll('.filtro-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filtrosDiv.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filtrarVagas(this.dataset.filtro);
+                });
+            });
+        } else {
+            filtrosDiv.style.display = 'none';
+            verTodasDiv.style.display = 'none';
+        }
+
+        // Renderizar cards no carrossel
+        const carousel = document.getElementById('vaga-carousel');
+        carousel.innerHTML = vagas.map(v => criarCard(v)).join('');
+    }
+
+    function criarCard(vaga) {
+        const corArea = areaCores[vaga.area] || '#999';
+        const fechadaClass = vaga.ativa ? '' : 'fechada';
+        const badge = vaga.ativa
+            ? '<span class="badge-regime">' + vaga.regime + '</span>'
+            : '<span class="badge-fechada">FECHADA</span>';
+
+        return '<div class="vaga-card ' + fechadaClass + '" data-area="' + vaga.area + '" data-id="' + vaga.id + '">' +
+            '<div class="vaga-card-header">' + badge +
+            '<span class="area-tag" style="background:' + corArea + '">' + vaga.area + '</span></div>' +
+            '<h3>' + vaga.titulo + '</h3>' +
+            '<p class="vaga-desc-curta">' + vaga.descricaoCurta + '</p>' +
+            '<div class="vaga-info">' +
+            '<span class="info-item">' + icons.clock + ' ' + vaga.cargaHoraria + '</span>' +
+            '<span class="info-item">' + icons.sun + ' ' + vaga.turno + '</span>' +
+            '<span class="info-item">' + icons.calendar + ' ' + vaga.folga + '</span>' +
+            '<span class="info-item">' + icons.pin + ' ' + vaga.modalidade + '</span>' +
+            '</div>' +
+            '<button class="btn-detalhes" onclick="abrirModal(\'' + vaga.id + '\')">Ver detalhes</button>' +
+            '</div>';
+    }
+
+    function filtrarVagas(area) {
+        document.querySelectorAll('.vaga-card').forEach(card => {
+            if (area === 'todas' || card.dataset.area === area) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // ====== MODAL (Nível 2) ======
+    function abrirModal(vagaId) {
+        const vaga = vagas.find(v => v.id === vagaId);
+        if (!vaga) return;
+
+        const corArea = areaCores[vaga.area] || '#999';
+        const modal = document.getElementById('vaga-modal');
+        const overlay = document.getElementById('vaga-modal-overlay');
+
+        const reqHtml = vaga.requisitos.map(r => '<li>' + icons.check + ' ' + r + '</li>').join('');
+        const difHtml = vaga.diferenciais.map(d => '<li>' + icons.check + ' ' + d + '</li>').join('');
+
+        const botao = vaga.ativa
+            ? '<a href="#candidatar" class="btn-apply" onclick="fecharModal()">Candidatar-se</a>'
+            : '<a href="' + whatsappLink.replace('[VAGA]', encodeURIComponent(vaga.titulo)) + '" class="btn-whatsapp-fechada" target="_blank">📱 Mandar mensagem no WhatsApp</a>';
+
+        modal.innerHTML =
+            '<button class="modal-close" onclick="fecharModal()">✕</button>' +
+            '<div class="modal-area-regime">' +
+            '<span class="badge-regime">' + vaga.regime + '</span>' +
+            '<span class="area-tag" style="background:' + corArea + '">' + vaga.area + '</span></div>' +
+            '<h3>' + vaga.titulo + '</h3>' +
+            '<div class="vaga-info">' +
+            '<span class="info-item">' + icons.clock + ' ' + vaga.cargaHoraria + '</span>' +
+            '<span class="info-item">' + icons.sun + ' ' + vaga.turno + '</span>' +
+            '<span class="info-item">' + icons.calendar + ' ' + vaga.folga + '</span>' +
+            '<span class="info-item">' + icons.pin + ' ' + vaga.modalidade + '</span>' +
+            '</div>' +
+            '<p class="modal-descricao">' + vaga.descricaoLonga + '</p>' +
+            '<h4 class="vaga-subtitle">🎯 Requisitos</h4>' +
+            '<ul class="requirements-list">' + reqHtml + '</ul>' +
+            '<h4 class="vaga-subtitle">⭐ Diferenciais</h4>' +
+            '<ul class="differentials-list">' + difHtml + '</ul>' +
+            botao;
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function fecharModal() {
+        document.getElementById('vaga-modal-overlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Fechar ao clicar fora do modal
+    document.getElementById('vaga-modal-overlay').addEventListener('click', function(e) {
+        if (e.target === this) fecharModal();
+    });
+
+    // Fechar com tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') fecharModal();
+    });
+
+    // Inicializar
+    renderVagas();
+</script>
+
+<!--// ====== HTML ====== // -->
+    
 <body>
 <nav id="navbar">
     <div class="container">
@@ -478,76 +953,31 @@
     </div>
 </section>
 
-<section id="vagas" class="vagas">
+<!-- VAGAS -->
+<section class="vagas" id="vagas">
     <div class="container">
         <div class="section-title">
-            <h2>Vagas Abertas</h2>
-            <p>Encontre a oportunidade ideal para o seu perfil.</p>
+            <h2>Vagas Disponíveis</h2>
+            <p>Temos oportunidades para quem quer crescer conosco.</p>
         </div>
 
-        <div class="vaga-featured">
-            <div class="vaga-header">
-                <div>
-                    <span class="badge">ABERTA</span>
-                    <h3>Estágio em Marketing</h3>
-                </div>
-            </div>
-            
-            <p style="margin-bottom: 20px;">Buscamos um estudante criativo e proativo para auxiliar na gestão de redes sociais, criação de conteúdo e suporte em eventos gastronômicos.</p>
-            
-            <h4 class="vaga-subtitle">Requisitos</h4>
-                
-                <ul class="requirements-list">
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Cursando Marketing ou afins
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Vontade de aprender e "mão na massa"
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Boa escrita e comunicação clara
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Antenado nas trends do TikTok e Instagram
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Disponibilidade de horário flexível para demandas eventuais
-                    </li>
-                </ul>
-            
-            <h4 class="vaga-subtitle">Diferenciais</h4>
-                
-                <ul class="differentials-list">
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Domínio de Adobe
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Domínio de Canva
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Domínio de CapCut
-                    </li>
-                    <li>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-                        Bom desempenho em gravar stories e reels de comida e institucionais
-                    </li>
-                </ul>
-            
-            <a href="#candidatar" class="btn-apply">Candidatar-se para esta vaga</a>
-        
-        </div>
+        <!-- Filtros (só aparece com 4+ vagas via JS) -->
+        <div class="vaga-filtros" id="vaga-filtros" style="display:none;"></div>
 
-        <!-- TEMPLATE DE VAGA: duplicar o bloco acima para novas posições futuras -->
+        <!-- Carrossel de vagas (gerado por JS) -->
+        <div class="vaga-carousel" id="vaga-carousel"></div>
+
+        <!-- Ver todas as vagas (só aparece com 4+ vagas via JS) -->
+        <div class="ver-todas-wrapper" id="ver-todas-wrapper" style="display:none;">
+            <a href="#" class="btn-ver-todas">Ver todas as vagas</a>
+        </div>
     </div>
 </section>
+
+<!-- MODAL de detalhes (Nível 2) -->
+<div class="vaga-modal-overlay" id="vaga-modal-overlay">
+    <div class="vaga-modal" id="vaga-modal"></div>
+</div>
 
 <section id="candidatar" class="form-section">
     <div class="container">
