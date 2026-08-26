@@ -743,8 +743,7 @@
             display: none;
         }
          .vaga-carousel {
-        justify-content: center !important;
-        padding-left: 9%;
+        scroll-padding-inline: 9%;
         }
         .vaga-modal {
             padding: 25px 20px;
@@ -1219,7 +1218,7 @@
             carousel.style.justifyContent = visiveis <= 2 ? 'center' : 'flex-start';
 
             // Resetar scroll para o início
-            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+            carousel.scrollLeft = 0;
             
             // Atualiza setas após filtrar
             setTimeout(updateArrows, 50);
