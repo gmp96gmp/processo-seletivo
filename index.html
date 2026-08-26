@@ -1215,8 +1215,9 @@
                 }
             });
             const carousel = document.getElementById('vaga-carousel');
-            carousel.style.justifyContent = visiveis <= 2 ? 'center' : 'flex-start';
-
+            const isMobile = window.innerWidth <= 768;
+                carousel.style.justifyContent = (!isMobile && visiveis <= 2) ? 'center' : 'flex-start';
+            
             // Desativa snap → reseta scroll → reativa snap
             requestAnimationFrame(() => {
                 carousel.style.scrollSnapType = 'none';
