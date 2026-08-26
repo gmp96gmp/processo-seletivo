@@ -204,40 +204,48 @@
         margin: 0 auto;
     }
 
-/* CULTURA SECTION */
-    .culture-grid {
+/* VALORES SECTION */
+    .valores-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
     }
-
-    .culture-card {
-        padding: 40px;
+    
+    .valor-card {
+        padding: 40px 30px;
         background: var(--secondary);
         border: 1px solid rgba(114, 7, 9, 0.1);
         border-radius: var(--radius);
         transition: var(--transition);
         text-align: center;
+        border-top: 3px solid transparent;
     }
-
-    .culture-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        border-color: var(--primary);
+    
+    .valor-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        border-top-color: var(--primary);
     }
-
-    .culture-card svg {
-        width: 50px;
-        height: 50px;
+    
+    .valor-card svg {
+        width: 48px;
+        height: 48px;
         fill: var(--primary);
         margin-bottom: 20px;
     }
-
-    .culture-card h3 {
+    
+    .valor-card h3 {
         margin-bottom: 15px;
-        font-size: 1.5rem;
+        font-size: 1.35rem;
+        color: var(--text-dark);
     }
-
+    
+    .valor-card p {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.6;
+    }
+            
 /* VAGAS SECTION */
     .vagas {
         background-color: var(--bg-light);
@@ -715,10 +723,28 @@
         section { padding: 40px 0; }
         .nav-links { display: none; }
         .nav-toggle { display: block; }
-        .culture-grid { grid-template-columns: 1fr; }
+        .valores-grid {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 20px 0;
+        }
+        .valores-grid::-webkit-scrollbar { display: none; }
+        .valor-card {
+            flex: 0 0 82%;
+            scroll-snap-align: center;
+            padding: 30px 22px;
+        }
         .vaga-card { flex: 0 0 82%; }
         .carousel-arrow {
             display: none;
+        }
+         .vaga-carousel {
+        justify-content: center !important;
+        padding-left: 9%;
         }
         .vaga-modal {
             padding: 25px 20px;
@@ -771,28 +797,57 @@
         </div>
     </section>
     
+    <!-- VALORES -->
     <section id="sobre">
         <div class="container">
             <div class="section-title">
-                <h2>Por que trabalhar conosco?</h2>
-                <p>Valorizamos o ingrediente humano tanto quanto os que vão à mesa.</p>
+                <h2>Nossos Valores</h2>
+                <p>Os princípios que guiam nossa equipe há quase 40 anos.</p>
             </div>
-            <div class="culture-grid">
-                <div class="culture-card">
-                    <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-                    <h3>Crescimento Real</h3>
-                    <p>Oferecemos planos de carreira claros e suporte contínuo para o seu desenvolvimento profissional.</p>
-                </div>
-                <div class="culture-card">
+            <div class="valores-grid">
+
+                <!-- 1. Família -->
+                <div class="valor-card">
                     <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                    <h3>Time Apaixonado</h3>
-                    <p>Trabalhe ao lado de pessoas que amam o que fazem e acreditam no poder da hospitalidade.</p>
+                    <h3>Somos uma Família</h3>
+                    <p>Valorizamos a união, o acolhimento e as relações que construímos dentro e fora da equipe. Muitos dos nossos colaboradores estão conosco há anos, porque acreditamos em criar vínculos que vão além do trabalho.</p>
                 </div>
-                <div class="culture-card">
-                    <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5 11 5.67 11 6.5 10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                    <h3>Ambiente Criativo</h3>
-                    <p>Incentivamos novas ideias e a busca constante pela inovação em todos os setores.</p>
+
+                <!-- 2. Excelência -->
+                <div class="valor-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <h3>Excelência</h3>
+                    <p>Temos compromisso com a excelência em tudo o que fazemos, da qualidade dos nossos pratos à forma como cuidamos do nosso trabalho e uns dos outros.</p>
                 </div>
+
+                <!-- 3. Felicidade do Cliente -->
+                <div class="valor-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5s.67 1.5 1.5 1.5zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                    <h3>Felicidade do Cliente</h3>
+                    <p>Tudo o que fazemos tem um objetivo: proporcionar bons momentos. Trabalhamos para que cada cliente saia satisfeito e leve consigo uma experiência que queira repetir.</p>
+                </div>
+
+                <!-- 4. Limpeza e Organização -->
+                <div class="valor-card">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <h3>Limpeza e Organização</h3>
+                    <p>Cuidamos do nosso ambiente e da nossa organização porque acreditamos que isso faz parte de um trabalho bem feito e de uma boa experiência para todos.</p>
+                </div>
+
+                <!-- 5. Respeito e Tradição -->
+                <div class="valor-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2zm0 2.83L19.17 12H4.83L12 4.83z"/></svg>
+                    <h3>Respeito e Tradição</h3>
+                    <p>Há quase 40 anos, fazemos parte da história de Volta Redonda. Valorizamos o respeito entre as pessoas, preservamos nossa tradição e acreditamos que um bom ambiente de trabalho também é feito de leveza, parceria e boas relações.</p>
+                </div>
+
+                <!-- 6. Comprometimento e Proatividade -->
+                <div class="valor-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                    <h3>Comprometimento e Proatividade</h3>
+                    <p>Ninguém precisa chegar sabendo tudo. O que buscamos são pessoas com vontade de trabalhar, aprender, se aperfeiçoar e crescer profissionalmente e também como pessoa.</p>
+                </div>
+
             </div>
         </div>
     </section>
