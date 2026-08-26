@@ -667,272 +667,7 @@
 </style>
 </head>
 
-<!-- ═══════════════════════════════════════ -->
-<!-- FIM DO CSS / INÍCIO DO JAVASCRIPT        -->
-<!-- ═══════════════════════════════════════ -->
-    
-<script>
-    
-    // ====== DADOS DAS VAGAS ======
-    // Para adicionar uma vaga: copie um bloco, preencha os campos
-    // ordem: número (menor = aparece primeiro)
-    // ativa: true = aberta | false = fechada (cinza, botão WhatsApp)
-    // oculta: true = não aparece nem com filtro | false = aparece a depender de filtro
-    
-    const vagas = [
 
-         // ================================================
-         // Vaga = Estágio em Marketing
-         // ================================================
-        
-        {
-            id: "estagio-marketing",
-            titulo: "Estágio em Marketing",
-            area: "Marketing",
-            regime: "ESTÁGIO",
-            cargaHoraria: "40h/semana",
-            turno: "Flexível",
-            folga: "Seg e Ter",
-            modalidade: "Presencial",
-            descricaoCurta: "Buscamos alguém criativo com vontade de aprender para impulsionar nossa presença digital.",
-            descricaoLonga: "Buscamos alguém que tenha vontade de aprender e colocar a mão na massa. Você vai auxiliar na criação de conteúdo, campanhas e muito mais.",
-            requisitos: [
-                "Cursando Marketing ou afins",
-                "Vontade de aprender e \"mão na massa\"",
-                "Boa escrita e comunicação clara",
-                "Antenado nas trends do TikTok e Instagram",
-                "Disponibilidade de horário flexível para demandas eventuais"
-            ],
-            diferenciais: [
-                "Domínio de Canva, CapCut e afins",
-                "Conhecimento no Pacote Adobe",
-                "Experiência prévia com redes sociais",
-                "Noção básica de métricas e engajamento",
-                "Paixão por gastronomia e restaurantes"
-            ],
-            ordem: 1,
-            ativa: true,
-            oculta: false 
-        },
-
-        // ================================================
-        // Vaga = Auxiliar de Cozinha
-        // ================================================
-        
-        {
-            id: "auxiliar-cozinha",
-            titulo: "Auxiliar de Cozinha",
-            area: "Cozinha/Pizza",
-            regime: "CLT",
-            cargaHoraria: "44h/semana",
-            turno: "Noite",
-            folga: "Rotativo",
-            modalidade: "Presencial",
-            descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
-            descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
-            requisitos: ["Experiência prévia em cozinha", "Disponibilidade para turno noturno"],
-            diferenciais: ["Curso de boas práticas em manipulação de alimentos"],
-            ordem: 2,
-            ativa: false,
-            oculta: false
-        },
-
-        // ================================================
-        // Vaga = Garçom
-        // ================================================
-
-        {
-            id: "garcom",
-            titulo: "Garçom/Garçonete",
-            area: "Atendimento",
-            regime: "CLT",
-            cargaHoraria: "44h/semana",
-            turno: "Noite",
-            folga: "Seg e Ter",
-            modalidade: "Presencial",
-            descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
-            descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
-            requisitos: ["Experiência em atendimento ao público", "Boa comunicação"],
-            diferenciais: ["Experiência com sistema de pedidos digital"],
-            ordem: 3,
-            ativa: false,
-            oculta: false
-        },
-
-        // ================================================
-        // Vaga = Entregador
-        // ================================================
-
-        {
-            id: "entregador",
-            titulo: "Entregador",
-            area: "Delivery",
-            regime: "TEMPORÁRIO",
-            cargaHoraria: "30h/semana",
-            turno: "Flexível",
-            folga: "Rotativo",
-            modalidade: "Presencial",
-            descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
-            descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
-            requisitos: ["Veículo próprio", "Disponibilidade de horário flexível"],
-            diferenciais: ["Experiência com delivery de alimentos"],
-            ordem: 4,
-            ativa: false,
-            oculta: true
-        }
-    ];
-
-    // Cores das áreas
-    const areaCores = {
-        "Cozinha/Pizza": "#e74c3c",
-        "Atendimento": "#3498db",
-        "Administrativo": "#2ecc71",
-        "Delivery": "#9b59b6",
-        "Marketing": "#f39c12"
-    };
-
-    // WhatsApp para vagas fechadas
-    const whatsappLink = "https://wa.me/5521992887277?text=Oi%2C%20vi%20que%20a%20vaga%20de%20[VAGA]%20est%C3%A1%20fechada%20mas%20gostaria%20de%20enviar%20meu%20curr%C3%ADculo.";
-
-    // Ícones SVG
-    const icons = {
-        clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-        sun: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',
-        calendar: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-        pin: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-        check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>'
-    };
-
-    // ====== RENDERIZAÇÃO ======
-    function renderVagas() {
-        // Filtrar vagas ocultas
-        const vagasVisiveis = vagas.filter(v => !v.oculta);
-
-        // Ordenar: ordem asc → área asc (A-Z) → título asc (A-Z)
-        vagasVisiveis.sort((a, b) => {
-            if (a.ordem !== b.ordem) return a.ordem - b.ordem;
-            if (a.area !== b.area) return a.area.localeCompare(b.area);
-            return a.titulo.localeCompare(b.titulo);
-        });
-
-        // Filtros + "Ver todas" só se 4+ vagas
-        const filtrosDiv = document.getElementById('vaga-filtros');
-        const verTodasDiv = document.getElementById('ver-todas-wrapper');
-
-        if (vagasVisiveis.length >= 4) {
-            const areas = [...new Set(vagasVisiveis.map(v => v.area))];
-            filtrosDiv.innerHTML = '<button class="filtro-btn active" data-filtro="todas">Ver todas</button>' +
-                areas.map(a => '<button class="filtro-btn" data-filtro="' + a + '">' + a + '</button>').join('');
-            filtrosDiv.style.display = 'flex';
-            verTodasDiv.style.display = 'block';
-
-            filtrosDiv.querySelectorAll('.filtro-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    filtrosDiv.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    filtrarVagas(this.dataset.filtro);
-                });
-            });
-        } else {
-            filtrosDiv.style.display = 'none';
-            verTodasDiv.style.display = 'none';
-        }
-
-    // Renderizar cards no carrossel
-        const carousel = document.getElementById('vaga-carousel');
-        carousel.innerHTML = vagasVisiveis.map(v => criarCard(v)).join('');
-    }
-
-    function criarCard(vaga) {
-        const corArea = areaCores[vaga.area] || '#999';
-        const fechadaClass = vaga.ativa ? '' : 'fechada';
-        const badge = vaga.ativa
-            ? '<span class="badge-regime">' + vaga.regime + '</span>'
-            : '<span class="badge-fechada">FECHADA</span>';
-
-        return '<div class="vaga-card ' + fechadaClass + '" data-area="' + vaga.area + '" data-id="' + vaga.id + '">' +
-            '<div class="vaga-card-header">' + badge +
-            '<span class="area-tag" style="background:' + corArea + '">' + vaga.area + '</span></div>' +
-            '<h3>' + vaga.titulo + '</h3>' +
-            '<p class="vaga-desc-curta">' + vaga.descricaoCurta + '</p>' +
-            '<div class="vaga-info">' +
-            '<span class="info-item">' + icons.clock + ' ' + vaga.cargaHoraria + '</span>' +
-            '<span class="info-item">' + icons.sun + ' ' + vaga.turno + '</span>' +
-            '<span class="info-item">' + icons.calendar + ' ' + vaga.folga + '</span>' +
-            '<span class="info-item">' + icons.pin + ' ' + vaga.modalidade + '</span>' +
-            '</div>' +
-            '<button class="btn-detalhes" onclick="abrirModal(\'' + vaga.id + '\')">Ver detalhes</button>' +
-            '</div>';
-    }
-
-    function filtrarVagas(area) {
-        document.querySelectorAll('.vaga-card').forEach(card => {
-            if (area === 'todas' || card.dataset.area === area) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    // ====== MODAL (Nível 2) ======
-    function abrirModal(vagaId) {
-        const vaga = vagas.find(v => v.id === vagaId);
-        if (!vaga) return;
-
-        const corArea = areaCores[vaga.area] || '#999';
-        const modal = document.getElementById('vaga-modal');
-        const overlay = document.getElementById('vaga-modal-overlay');
-
-        const reqHtml = vaga.requisitos.map(r => '<li>' + icons.check + ' ' + r + '</li>').join('');
-        const difHtml = vaga.diferenciais.map(d => '<li>' + icons.check + ' ' + d + '</li>').join('');
-
-        const botao = vaga.ativa
-            ? '<a href="#candidatar" class="btn-apply" onclick="fecharModal()">Candidatar-se</a>'
-            : '<a href="' + whatsappLink.replace('[VAGA]', encodeURIComponent(vaga.titulo)) + '" class="btn-whatsapp-fechada" target="_blank">📱 Mandar mensagem no WhatsApp</a>';
-
-        modal.innerHTML =
-            '<button class="modal-close" onclick="fecharModal()">✕</button>' +
-            '<div class="modal-area-regime">' +
-            '<span class="badge-regime">' + vaga.regime + '</span>' +
-            '<span class="area-tag" style="background:' + corArea + '">' + vaga.area + '</span></div>' +
-            '<h3>' + vaga.titulo + '</h3>' +
-            '<div class="vaga-info">' +
-            '<span class="info-item">' + icons.clock + ' ' + vaga.cargaHoraria + '</span>' +
-            '<span class="info-item">' + icons.sun + ' ' + vaga.turno + '</span>' +
-            '<span class="info-item">' + icons.calendar + ' ' + vaga.folga + '</span>' +
-            '<span class="info-item">' + icons.pin + ' ' + vaga.modalidade + '</span>' +
-            '</div>' +
-            '<p class="modal-descricao">' + vaga.descricaoLonga + '</p>' +
-            '<h4 class="vaga-subtitle">🎯 Requisitos</h4>' +
-            '<ul class="requirements-list">' + reqHtml + '</ul>' +
-            '<h4 class="vaga-subtitle">⭐ Diferenciais</h4>' +
-            '<ul class="differentials-list">' + difHtml + '</ul>' +
-            botao;
-
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function fecharModal() {
-        document.getElementById('vaga-modal-overlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Fechar ao clicar fora do modal
-    document.getElementById('vaga-modal-overlay').addEventListener('click', function(e) {
-        if (e.target === this) fecharModal();
-    });
-
-    // Fechar com tecla ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') fecharModal();
-    });
-
-    // Inicializar
-    renderVagas();
-</script>
-    
 <!-- ═══════════════════════════════════════ -->
 <!-- FIM DO JAVASCRIPT / INÍCIO DO HTML      -->
 <!-- ═══════════════════════════════════════ -->
@@ -1038,6 +773,10 @@
             </div>
         </div>
     </footer>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- ══════════ SCRIPT 1 = Navbar ══════════ -->
+    <!-- ═══════════════════════════════════════ -->
     
     <script>
         // Navbar scroll effect
@@ -1065,5 +804,272 @@
             });
         });
     </script>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- ══════════ SCRIPT 2 = Vagas ══════════ -->
+    <!-- ══════════════════════════════════════ -->
+    
+    <script>
+        
+        // ====== DADOS DAS VAGAS ======
+        // Para adicionar uma vaga: copie um bloco, preencha os campos
+        // ordem: número (menor = aparece primeiro)
+        // ativa: true = aberta | false = fechada (cinza, botão WhatsApp)
+        // oculta: true = não aparece nem com filtro | false = aparece a depender de filtro
+        
+        const vagas = [
+    
+             // ================================================
+             // Vaga = Estágio em Marketing
+             // ================================================
+            
+            {
+                id: "estagio-marketing",
+                titulo: "Estágio em Marketing",
+                area: "Marketing",
+                regime: "ESTÁGIO",
+                cargaHoraria: "40h/semana",
+                turno: "Flexível",
+                folga: "Seg e Ter",
+                modalidade: "Presencial",
+                descricaoCurta: "Buscamos alguém criativo com vontade de aprender para impulsionar nossa presença digital.",
+                descricaoLonga: "Buscamos alguém que tenha vontade de aprender e colocar a mão na massa. Você vai auxiliar na criação de conteúdo, campanhas e muito mais.",
+                requisitos: [
+                    "Cursando Marketing ou afins",
+                    "Vontade de aprender e \"mão na massa\"",
+                    "Boa escrita e comunicação clara",
+                    "Antenado nas trends do TikTok e Instagram",
+                    "Disponibilidade de horário flexível para demandas eventuais"
+                ],
+                diferenciais: [
+                    "Domínio de Canva, CapCut e afins",
+                    "Conhecimento no Pacote Adobe",
+                    "Experiência prévia com redes sociais",
+                    "Noção básica de métricas e engajamento",
+                    "Paixão por gastronomia e restaurantes"
+                ],
+                ordem: 1,
+                ativa: true,
+                oculta: false 
+            },
+    
+            // ================================================
+            // Vaga = Auxiliar de Cozinha
+            // ================================================
+            
+            {
+                id: "auxiliar-cozinha",
+                titulo: "Auxiliar de Cozinha",
+                area: "Cozinha/Pizza",
+                regime: "CLT",
+                cargaHoraria: "44h/semana",
+                turno: "Noite",
+                folga: "Rotativo",
+                modalidade: "Presencial",
+                descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
+                descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
+                requisitos: ["Experiência prévia em cozinha", "Disponibilidade para turno noturno"],
+                diferenciais: ["Curso de boas práticas em manipulação de alimentos"],
+                ordem: 2,
+                ativa: false,
+                oculta: false
+            },
+    
+            // ================================================
+            // Vaga = Garçom
+            // ================================================
+    
+            {
+                id: "garcom",
+                titulo: "Garçom/Garçonete",
+                area: "Atendimento",
+                regime: "CLT",
+                cargaHoraria: "44h/semana",
+                turno: "Noite",
+                folga: "Seg e Ter",
+                modalidade: "Presencial",
+                descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
+                descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
+                requisitos: ["Experiência em atendimento ao público", "Boa comunicação"],
+                diferenciais: ["Experiência com sistema de pedidos digital"],
+                ordem: 3,
+                ativa: false,
+                oculta: false
+            },
+    
+            // ================================================
+            // Vaga = Entregador
+            // ================================================
+    
+            {
+                id: "entregador",
+                titulo: "Entregador",
+                area: "Delivery",
+                regime: "TEMPORÁRIO",
+                cargaHoraria: "30h/semana",
+                turno: "Flexível",
+                folga: "Rotativo",
+                modalidade: "Presencial",
+                descricaoCurta: "Vaga temporariamente fechada. Interessados podem enviar mensagem.",
+                descricaoLonga: "Vaga fechada no momento. Se você tem interesse, mande uma mensagem pelo WhatsApp.",
+                requisitos: ["Veículo próprio", "Disponibilidade de horário flexível"],
+                diferenciais: ["Experiência com delivery de alimentos"],
+                ordem: 4,
+                ativa: false,
+                oculta: true
+            }
+        ];
+    
+        // Cores das áreas
+        const areaCores = {
+            "Cozinha/Pizza": "#e74c3c",
+            "Atendimento": "#3498db",
+            "Administrativo": "#2ecc71",
+            "Delivery": "#9b59b6",
+            "Marketing": "#f39c12"
+        };
+    
+        // WhatsApp para vagas fechadas
+        const whatsappLink = "https://wa.me/5521992887277?text=Oi%2C%20vi%20que%20a%20vaga%20de%20[VAGA]%20est%C3%A1%20fechada%20mas%20gostaria%20de%20enviar%20meu%20curr%C3%ADculo.";
+    
+        // Ícones SVG
+        const icons = {
+            clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+            sun: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',
+            calendar: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+            pin: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+            check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#720709" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>'
+        };
+    
+        // ====== RENDERIZAÇÃO ======
+        function renderVagas() {
+            // Filtrar vagas ocultas
+            const vagasVisiveis = vagas.filter(v => !v.oculta);
+    
+            // Ordenar: ordem asc → área asc (A-Z) → título asc (A-Z)
+            vagasVisiveis.sort((a, b) => {
+                if (a.ordem !== b.ordem) return a.ordem - b.ordem;
+                if (a.area !== b.area) return a.area.localeCompare(b.area);
+                return a.titulo.localeCompare(b.titulo);
+            });
+    
+            // Filtros + "Ver todas" só se 4+ vagas
+            const filtrosDiv = document.getElementById('vaga-filtros');
+            const verTodasDiv = document.getElementById('ver-todas-wrapper');
+    
+            if (vagasVisiveis.length >= 4) {
+                const areas = [...new Set(vagasVisiveis.map(v => v.area))];
+                filtrosDiv.innerHTML = '<button class="filtro-btn active" data-filtro="todas">Ver todas</button>' +
+                    areas.map(a => '<button class="filtro-btn" data-filtro="' + a + '">' + a + '</button>').join('');
+                filtrosDiv.style.display = 'flex';
+                verTodasDiv.style.display = 'block';
+    
+                filtrosDiv.querySelectorAll('.filtro-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        filtrosDiv.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        filtrarVagas(this.dataset.filtro);
+                    });
+                });
+            } else {
+                filtrosDiv.style.display = 'none';
+                verTodasDiv.style.display = 'none';
+            }
+    
+        // Renderizar cards no carrossel
+            const carousel = document.getElementById('vaga-carousel');
+            carousel.innerHTML = vagasVisiveis.map(v => criarCard(v)).join('');
+        }
+    
+        function criarCard(vaga) {
+            const corArea = areaCores[vaga.area] || '#999';
+            const fechadaClass = vaga.ativa ? '' : 'fechada';
+            const badge = vaga.ativa
+                ? '<span class="badge-regime">' + vaga.regime + '</span>'
+                : '<span class="badge-fechada">FECHADA</span>';
+    
+            return '<div class="vaga-card ' + fechadaClass + '" data-area="' + vaga.area + '" data-id="' + vaga.id + '">' +
+                '<div class="vaga-card-header">' + badge +
+                '<span class="area-tag" style="background:' + corArea + '">' + vaga.area + '</span></div>' +
+                '<h3>' + vaga.titulo + '</h3>' +
+                '<p class="vaga-desc-curta">' + vaga.descricaoCurta + '</p>' +
+                '<div class="vaga-info">' +
+                '<span class="info-item">' + icons.clock + ' ' + vaga.cargaHoraria + '</span>' +
+                '<span class="info-item">' + icons.sun + ' ' + vaga.turno + '</span>' +
+                '<span class="info-item">' + icons.calendar + ' ' + vaga.folga + '</span>' +
+                '<span class="info-item">' + icons.pin + ' ' + vaga.modalidade + '</span>' +
+                '</div>' +
+                '<button class="btn-detalhes" onclick="abrirModal(\'' + vaga.id + '\')">Ver detalhes</button>' +
+                '</div>';
+        }
+    
+        function filtrarVagas(area) {
+            document.querySelectorAll('.vaga-card').forEach(card => {
+                if (area === 'todas' || card.dataset.area === area) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    
+        // ====== MODAL (Nível 2) ======
+        function abrirModal(vagaId) {
+            const vaga = vagas.find(v => v.id === vagaId);
+            if (!vaga) return;
+    
+            const corArea = areaCores[vaga.area] || '#999';
+            const modal = document.getElementById('vaga-modal');
+            const overlay = document.getElementById('vaga-modal-overlay');
+    
+            const reqHtml = vaga.requisitos.map(r => '<li>' + icons.check + ' ' + r + '</li>').join('');
+            const difHtml = vaga.diferenciais.map(d => '<li>' + icons.check + ' ' + d + '</li>').join('');
+    
+            const botao = vaga.ativa
+                ? '<a href="#candidatar" class="btn-apply" onclick="fecharModal()">Candidatar-se</a>'
+                : '<a href="' + whatsappLink.replace('[VAGA]', encodeURIComponent(vaga.titulo)) + '" class="btn-whatsapp-fechada" target="_blank">📱 Mandar mensagem no WhatsApp</a>';
+    
+            modal.innerHTML =
+                '<button class="modal-close" onclick="fecharModal()">✕</button>' +
+                '<div class="modal-area-regime">' +
+                '<span class="badge-regime">' + vaga.regime + '</span>' +
+                '<span class="area-tag" style="background:' + corArea + '">' + vaga.area + '</span></div>' +
+                '<h3>' + vaga.titulo + '</h3>' +
+                '<div class="vaga-info">' +
+                '<span class="info-item">' + icons.clock + ' ' + vaga.cargaHoraria + '</span>' +
+                '<span class="info-item">' + icons.sun + ' ' + vaga.turno + '</span>' +
+                '<span class="info-item">' + icons.calendar + ' ' + vaga.folga + '</span>' +
+                '<span class="info-item">' + icons.pin + ' ' + vaga.modalidade + '</span>' +
+                '</div>' +
+                '<p class="modal-descricao">' + vaga.descricaoLonga + '</p>' +
+                '<h4 class="vaga-subtitle">🎯 Requisitos</h4>' +
+                '<ul class="requirements-list">' + reqHtml + '</ul>' +
+                '<h4 class="vaga-subtitle">⭐ Diferenciais</h4>' +
+                '<ul class="differentials-list">' + difHtml + '</ul>' +
+                botao;
+    
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    
+        function fecharModal() {
+            document.getElementById('vaga-modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    
+        // Fechar ao clicar fora do modal
+        document.getElementById('vaga-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) fecharModal();
+        });
+    
+        // Fechar com tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') fecharModal();
+        });
+    
+        // Inicializar
+        renderVagas();
+    </script>
+        
 </body>
 </html>
