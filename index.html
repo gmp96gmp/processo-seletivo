@@ -204,7 +204,7 @@
         margin: 0 auto;
     }
 
-    /* CULTURA SECTION */
+/* CULTURA SECTION */
     .culture-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -602,7 +602,7 @@
     overflow: hidden;
 }
 
-    /* FOOTER */
+/* FOOTER */
     footer {
         background-color: var(--text-dark);
         color: var(--secondary);
@@ -667,14 +667,24 @@
 </style>
 </head>
 
-<!--// ====== JAVASCRIPT ====== // -->
-
+<!-- ═══════════════════════════════════════ -->
+<!-- FIM DO CSS / INÍCIO DO JAVASCRIPT        -->
+<!-- ═══════════════════════════════════════ -->
+    
 <script>
+    
     // ====== DADOS DAS VAGAS ======
     // Para adicionar uma vaga: copie um bloco, preencha os campos
     // ordem: número (menor = aparece primeiro)
     // ativa: true = aberta | false = fechada (cinza, botão WhatsApp)
+    // oculta: true = não aparece nem com filtro | false = aparece a depender de filtro
+    
     const vagas = [
+
+         // ================================================
+         // Vaga = Estágio em Marketing
+         // ================================================
+        
         {
             id: "estagio-marketing",
             titulo: "Estágio em Marketing",
@@ -701,8 +711,14 @@
                 "Paixão por gastronomia e restaurantes"
             ],
             ordem: 1,
-            ativa: true
+            ativa: true,
+            oculta: false 
         },
+
+        // ================================================
+        // Vaga = Auxiliar de Cozinha
+        // ================================================
+        
         {
             id: "auxiliar-cozinha",
             titulo: "Auxiliar de Cozinha",
@@ -717,8 +733,14 @@
             requisitos: ["Experiência prévia em cozinha", "Disponibilidade para turno noturno"],
             diferenciais: ["Curso de boas práticas em manipulação de alimentos"],
             ordem: 2,
-            ativa: false
+            ativa: false,
+            oculta: false
         },
+
+        // ================================================
+        // Vaga = Garçom
+        // ================================================
+
         {
             id: "garcom",
             titulo: "Garçom/Garçonete",
@@ -733,8 +755,14 @@
             requisitos: ["Experiência em atendimento ao público", "Boa comunicação"],
             diferenciais: ["Experiência com sistema de pedidos digital"],
             ordem: 3,
-            ativa: false
+            ativa: false,
+            oculta: false
         },
+
+        // ================================================
+        // Vaga = Entregador
+        // ================================================
+
         {
             id: "entregador",
             titulo: "Entregador",
@@ -749,7 +777,8 @@
             requisitos: ["Veículo próprio", "Disponibilidade de horário flexível"],
             diferenciais: ["Experiência com delivery de alimentos"],
             ordem: 4,
-            ativa: false
+            ativa: false,
+            oculta: true
         }
     ];
 
@@ -776,8 +805,11 @@
 
     // ====== RENDERIZAÇÃO ======
     function renderVagas() {
+        // Filtrar vagas ocultas
+        const vagasVisiveis = vagas.filter(v => !v.oculta);
+
         // Ordenar: ordem asc → área asc (A-Z) → título asc (A-Z)
-        vagas.sort((a, b) => {
+        vagasVisiveis.sort((a, b) => {
             if (a.ordem !== b.ordem) return a.ordem - b.ordem;
             if (a.area !== b.area) return a.area.localeCompare(b.area);
             return a.titulo.localeCompare(b.titulo);
@@ -787,8 +819,8 @@
         const filtrosDiv = document.getElementById('vaga-filtros');
         const verTodasDiv = document.getElementById('ver-todas-wrapper');
 
-        if (vagas.length >= 4) {
-            const areas = [...new Set(vagas.map(v => v.area))];
+        if (vagasVisiveis.length >= 4) {
+            const areas = [...new Set(vagasVisiveis.map(v => v.area))];
             filtrosDiv.innerHTML = '<button class="filtro-btn active" data-filtro="todas">Ver todas</button>' +
                 areas.map(a => '<button class="filtro-btn" data-filtro="' + a + '">' + a + '</button>').join('');
             filtrosDiv.style.display = 'flex';
@@ -806,9 +838,9 @@
             verTodasDiv.style.display = 'none';
         }
 
-        // Renderizar cards no carrossel
+    // Renderizar cards no carrossel
         const carousel = document.getElementById('vaga-carousel');
-        carousel.innerHTML = vagas.map(v => criarCard(v)).join('');
+        carousel.innerHTML = vagasVisiveis.map(v => criarCard(v)).join('');
     }
 
     function criarCard(vaga) {
@@ -900,136 +932,138 @@
     // Inicializar
     renderVagas();
 </script>
-
-<!--// ====== HTML ====== // -->
+    
+<!-- ═══════════════════════════════════════ -->
+<!-- FIM DO JAVASCRIPT / INÍCIO DO HTML      -->
+<!-- ═══════════════════════════════════════ -->
     
 <body>
-<nav id="navbar">
-    <div class="container">
-        <a href="#"><img src="logo-matos.png" alt="Matos Restaurante" class="logo-img"></a>
-        <button class="nav-toggle" id="nav-toggle">☰</button>
-        <div class="nav-links" id="nav-links">
-            <a href="#sobre">Sobre</a>
-            <a href="#vagas">Vagas</a>
-            <a href="#candidatar" class="btn-nav">Candidatar-se</a>
-        </div>
-    </div>
-</nav>
-
-<section class="hero">
-    <div class="hero-content container">
-        <h1>Faça parte da história do Matos Restaurante</h1>
-        <p>Estamos em busca de talentos que compartilham nossa paixão pela gastronomia e excelência.</p>
-        <a href="#vagas" class="btn-hero">Ver vagas abertas</a>
-    </div>
-    <div class="scroll-indicator">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-    </div>
-</section>
-
-<section id="sobre">
-    <div class="container">
-        <div class="section-title">
-            <h2>Por que trabalhar conosco?</h2>
-            <p>Valorizamos o ingrediente humano tanto quanto os que vão à mesa.</p>
-        </div>
-        <div class="culture-grid">
-            <div class="culture-card">
-                <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-                <h3>Crescimento Real</h3>
-                <p>Oferecemos planos de carreira claros e suporte contínuo para o seu desenvolvimento profissional.</p>
-            </div>
-            <div class="culture-card">
-                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                <h3>Time Apaixonado</h3>
-                <p>Trabalhe ao lado de pessoas que amam o que fazem e acreditam no poder da hospitalidade.</p>
-            </div>
-            <div class="culture-card">
-                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5 11 5.67 11 6.5 10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                <h3>Ambiente Criativo</h3>
-                <p>Incentivamos novas ideias e a busca constante pela inovação em todos os setores.</p>
+    <nav id="navbar">
+        <div class="container">
+            <a href="#"><img src="logo-matos.png" alt="Matos Restaurante" class="logo-img"></a>
+            <button class="nav-toggle" id="nav-toggle">☰</button>
+            <div class="nav-links" id="nav-links">
+                <a href="#sobre">Sobre</a>
+                <a href="#vagas">Vagas</a>
+                <a href="#candidatar" class="btn-nav">Candidatar-se</a>
             </div>
         </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Faça parte da história do Matos Restaurante</h1>
+            <p>Estamos em busca de talentos que compartilham nossa paixão pela gastronomia e excelência.</p>
+            <a href="#vagas" class="btn-hero">Ver vagas abertas</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+        </div>
+    </section>
+    
+    <section id="sobre">
+        <div class="container">
+            <div class="section-title">
+                <h2>Por que trabalhar conosco?</h2>
+                <p>Valorizamos o ingrediente humano tanto quanto os que vão à mesa.</p>
+            </div>
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                    <h3>Crescimento Real</h3>
+                    <p>Oferecemos planos de carreira claros e suporte contínuo para o seu desenvolvimento profissional.</p>
+                </div>
+                <div class="culture-card">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <h3>Time Apaixonado</h3>
+                    <p>Trabalhe ao lado de pessoas que amam o que fazem e acreditam no poder da hospitalidade.</p>
+                </div>
+                <div class="culture-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5 11 5.67 11 6.5 10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    <h3>Ambiente Criativo</h3>
+                    <p>Incentivamos novas ideias e a busca constante pela inovação em todos os setores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- VAGAS -->
+    <section class="vagas" id="vagas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Vagas Disponíveis</h2>
+                <p>Temos oportunidades para quem quer crescer conosco.</p>
+            </div>
+    
+            <!-- Filtros (só aparece com 4+ vagas via JS) -->
+            <div class="vaga-filtros" id="vaga-filtros" style="display:none;"></div>
+    
+            <!-- Carrossel de vagas (gerado por JS) -->
+            <div class="vaga-carousel" id="vaga-carousel"></div>
+    
+            <!-- Ver todas as vagas (só aparece com 4+ vagas via JS) -->
+            <div class="ver-todas-wrapper" id="ver-todas-wrapper" style="display:none;">
+                <a href="#" class="btn-ver-todas">Ver todas as vagas</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MODAL de detalhes (Nível 2) -->
+    <div class="vaga-modal-overlay" id="vaga-modal-overlay">
+        <div class="vaga-modal" id="vaga-modal"></div>
     </div>
-</section>
-
-<!-- VAGAS -->
-<section class="vagas" id="vagas">
-    <div class="container">
-        <div class="section-title">
-            <h2>Vagas Disponíveis</h2>
-            <p>Temos oportunidades para quem quer crescer conosco.</p>
+    
+    <section id="candidatar" class="form-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Candidate-se</h2>
+                <p>Preencha o formulário abaixo. Leva menos de 3 minutos.</p>
+            </div>
+            
+            <div class="tally-container" id="tally-embed">
+                <iframe data-tally-src="https://tally.so/embed/ja8pYQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0" title="Estágio - Matos Restaurante"></iframe>
+                <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+            </div>
         </div>
-
-        <!-- Filtros (só aparece com 4+ vagas via JS) -->
-        <div class="vaga-filtros" id="vaga-filtros" style="display:none;"></div>
-
-        <!-- Carrossel de vagas (gerado por JS) -->
-        <div class="vaga-carousel" id="vaga-carousel"></div>
-
-        <!-- Ver todas as vagas (só aparece com 4+ vagas via JS) -->
-        <div class="ver-todas-wrapper" id="ver-todas-wrapper" style="display:none;">
-            <a href="#" class="btn-ver-todas">Ver todas as vagas</a>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <img src="logo-matos.png" alt="Matos Restaurante" class="footer-logo-img">
+            <div class="footer-info">
+            <p>2026 - Matos Restaurante Pizzaria e Restaurante LTDA. Todos os direitos reservados.</p>
+            </div>
+            <div class="lgpd-notice">
+                <p></p>Ao enviar seus dados, você concorda com nossa política de privacidade. Os dados coletados serão utilizados exclusivamente para fins de recrutamento e seleção, em conformidade com a Lei Geral de Proteção de Dados (LGPD).</p>
+            </div>
         </div>
-    </div>
-</section>
-
-<!-- MODAL de detalhes (Nível 2) -->
-<div class="vaga-modal-overlay" id="vaga-modal-overlay">
-    <div class="vaga-modal" id="vaga-modal"></div>
-</div>
-
-<section id="candidatar" class="form-section">
-    <div class="container">
-        <div class="section-title">
-            <h2>Candidate-se</h2>
-            <p>Preencha o formulário abaixo. Leva menos de 3 minutos.</p>
-        </div>
-        
-        <div class="tally-container" id="tally-embed">
-            <iframe data-tally-src="https://tally.so/embed/ja8pYQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0" title="Estágio - Matos Restaurante"></iframe>
-            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <img src="logo-matos.png" alt="Matos Restaurante" class="footer-logo-img">
-        <div class="footer-info">
-        <p>2026 - Matos Restaurante Pizzaria e Restaurante LTDA. Todos os direitos reservados.</p>
-        </div>
-        <div class="lgpd-notice">
-            <p></p>Ao enviar seus dados, você concorda com nossa política de privacidade. Os dados coletados serão utilizados exclusivamente para fins de recrutamento e seleção, em conformidade com a Lei Geral de Proteção de Dados (LGPD).</p>
-        </div>
-    </div>
-</footer>
-
-<script>
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile menu toggle
-    const navToggle = document.getElementById('nav-toggle');
-    const navLinks = document.getElementById('nav-links');
-
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
+    </footer>
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
-    });
-</script>
+    
+        // Mobile menu toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+    
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
