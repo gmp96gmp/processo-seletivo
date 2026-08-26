@@ -742,8 +742,8 @@
         .carousel-arrow {
             display: none;
         }
-         .vaga-carousel {
-        scroll-padding-inline: 9%;
+        .vaga-carousel {
+        padding: 20px 5% 20px 9%;
         }
         .vaga-modal {
             padding: 25px 20px;
@@ -1217,11 +1217,15 @@
             const carousel = document.getElementById('vaga-carousel');
             carousel.style.justifyContent = visiveis <= 2 ? 'center' : 'flex-start';
 
-            // Resetar scroll para o início
-            carousel.scrollLeft = 0;
-            
-            // Atualiza setas após filtrar
-            setTimeout(updateArrows, 50);
+            // Desativa snap → reseta scroll → reativa snap
+            requestAnimationFrame(() => {
+                carousel.style.scrollSnapType = 'none';
+                carousel.scrollLeft = 0;
+                requestAnimationFrame(() => {
+                    carousel.style.scrollSnapType = 'x mandatory';
+                    setTimeout(updateArrows, 50);
+                });
+            });
         }
         
         // ====== MODAL (Nível 2) ======
