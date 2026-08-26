@@ -1072,11 +1072,39 @@
                 filtrosDiv.style.display = 'flex';
                 verTodasDiv.style.display = 'block';
 
+                let areasSelecionadas = ['todas'];
+
                 filtrosDiv.querySelectorAll('.filtro-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
-                        filtrosDiv.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        filtrarVagas(this.dataset.filtro);
+                        const filtro = this.dataset.filtro;
+
+                        if (filtro === 'todas') {
+                            // "Ver todas" reseta tudo
+                            areasSelecionadas = ['todas'];
+                            filtrosDiv.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                            this.classList.add('active');
+                        } else {
+                            // Remove "todas" se estava ativo
+                            areasSelecionadas = areasSelecionadas.filter(a => a !== 'todas');
+                            filtrosDiv.querySelector('[data-filtro="todas"]').classList.remove('active');
+
+                            // Toggle da área clicada
+                            if (areasSelecionadas.includes(filtro)) {
+                                areasSelecionadas = areasSelecionadas.filter(a => a !== filtro);
+                                this.classList.remove('active');
+                            } else {
+                                areasSelecionadas.push(filtro);
+                                this.classList.add('active');
+                            }
+
+                            // Se nenhuma área selecionada, volta para "todas"
+                            if (areasSelecionadas.length === 0) {
+                                areasSelecionadas = ['todas'];
+                                filtrosDiv.querySelector('[data-filtro="todas"]').classList.add('active');
+                            }
+                        }
+
+                        filtrarVagas(areasSelecionadas);
                     });
                 });
             } else {
@@ -1119,11 +1147,13 @@
                 '</div>';
         }
 
-        function filtrarVagas(area) {
+        function filtrarVagas(areas) {
+            // areas pode ser string (compatibilidade) ou array
+            const lista = Array.isArray(areas) ? areas : [areas];
             const cards = document.querySelectorAll('.vaga-card');
             let visiveis = 0;
             cards.forEach(card => {
-                if (area === 'todas' || card.dataset.area === area) {
+                if (lista.includes('todas') || lista.includes(card.dataset.area)) {
                     card.style.display = 'flex';
                     visiveis++;
                 } else {
@@ -1131,9 +1161,12 @@
                 }
             });
             const carousel = document.getElementById('vaga-carousel');
-            carousel.style.justifyContent = visiveis <= 1 ? 'center' : 'flex-start';
-        }
+            carousel.style.justifyContent = visiveis <= 2 ? 'center' : 'flex-start';
 
+            // Atualiza setas após filtrar
+            setTimeout(updateArrows, 50);
+        }
+        
         // ====== MODAL (Nível 2) ======
         function abrirModal(vagaId) {
             const vaga = vagas.find(v => v.id === vagaId);
