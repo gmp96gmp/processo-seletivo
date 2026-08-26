@@ -1218,6 +1218,9 @@
             const carousel = document.getElementById('vaga-carousel');
             carousel.style.justifyContent = visiveis <= 2 ? 'center' : 'flex-start';
 
+            // Resetar scroll para o início
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+            
             // Atualiza setas após filtrar
             setTimeout(updateArrows, 50);
         }
