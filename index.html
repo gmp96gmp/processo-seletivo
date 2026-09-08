@@ -950,7 +950,7 @@
         // ativa: true = aberta | false = fechada (cinza, botão WhatsApp)
         // oculta: true = não aparece nem com filtro | false = aparece a depender de filtro
         
-        const vagas = [
+        let vagas = [
     
              // ================================================
              // Vaga = Estágio em Marketing
@@ -1353,6 +1353,62 @@
         // Inicializar
         renderVagas();
         setTimeout(updateArrows, 100);
+
+        // ====== INTEGRAÇÃO AIRTABLE (gestão de vagas) ======//
+        const AIRTABLE_TOKEN = 'patyLzmR4ScJF009c.e6befb1696d38b360b066ce0ef7044c17f8a369364f201b881a1d01dc8cb4a91';
+        const AIRTABLE_BASE_ID = 'appySmd61QpdkWtVu';
+        const AIRTABLE_TABLE_ID = 'tblZ5PujpCTs5rliI';
+        
+        function splitLista(texto) {
+            if (!texto) return [];
+            return String(texto).split('|').map(function(item) { return item.trim(); }).filter(Boolean);
+        }
+        
+        async function carregarVagasDoAirtable() {
+            try {
+                const resposta = await fetch('https://api.airtable.com/v0/' + AIRTABLE_BASE_ID + '/' + AIRTABLE_TABLE_ID + '?maxRecords=100', {
+                    headers: { 'Authorization': 'Bearer ' + AIRTABLE_TOKEN }
+                });
+                if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+                const dados = await resposta.json();
+                return dados.records.map(function(reg) {
+                    const f = reg.fields || {};
+                    return {
+                        id: f.id || reg.id,
+                        titulo: f.titulo || '',
+                        area: f.area || 'Outros',
+                        regime: f.regime || '',
+                        modalidade: f.modalidade || '',
+                        cargaHoraria: f.cargaHoraria || '',
+                        turno: f.turno || '',
+                        diasTrabalhados: f.diasTrabalhados || '',
+                        local: f.local || '',
+                        descricaoCurta: f.descricaoCurta || '',
+                        descricaoLonga: f.descricaoLonga || '',
+                        requisitos: splitLista(f.requisitos),
+                        diferenciais: splitLista(f.diferenciais),
+                        ordem: f.ordem || 99,
+                        ativa: !!f.ativa,
+                        oculta: !!f.oculta,
+                        inicioImediato: !!f.inicioImediato
+                    };
+                });
+            } catch (erro) {
+                console.warn('Airtable indisponível — usando vagas locais.', erro);
+                return null;
+            }
+        }
+        
+        // Carrega do Airtable e re-renderiza (se falhar, mantém as vagas locais)
+        carregarVagasDoAirtable().then(function(vagasNovas) {
+            if (vagasNovas && vagasNovas.length > 0) {
+                vagas = vagasNovas;
+                renderVagas();
+                updateArrows();
+                console.log('Vagas carregadas do Airtable:', vagasNovas.length);
+            }
+        });
+        
     </script>       
 </body>
 </html>
